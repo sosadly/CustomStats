@@ -1,4 +1,4 @@
-package org.sosadly.listener;
+package org.sosadly.customstats.listener;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Sound;
@@ -12,10 +12,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.sosadly.CustomStats;
-import org.sosadly.affix.Affix;
-import org.sosadly.manager.LocaleManager;
-import org.sosadly.util.ItemUtil;
+import org.sosadly.customstats.affix.Affix;
+import org.sosadly.customstats.CustomStats;
+import org.sosadly.customstats.manager.LocaleManager;
+import org.sosadly.customstats.util.ItemUtil;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -103,10 +103,17 @@ public class ApplyAffixItemListener implements Listener {
         FileConfiguration config = plugin.getConfig();
         String itemKey = item.getType().getKey().toString();
         
-        // ВИПРАВЛЕНО: Тепер ConfigurationSection імпортовано
-        ConfigurationSection customItemsSection = config.getConfigurationSection("custom-affix-items");
-        if (customItemsSection != null && customItemsSection.contains(itemKey)) {
-            String type = customItemsSection.getString(itemKey, "").toLowerCase();
+        List<String> blacklist = config.getStringList("custom-affix-items.blacklist");
+        if (blacklist.contains(itemKey)) {
+            return AffixType.NONE;
+        }
+
+        ConfigurationSection overridesSection = config.getConfigurationSection("custom-affix-items.overrides");
+        if (overridesSection == null) {
+            overridesSection = config.getConfigurationSection("custom-affix-items");
+        }
+        if (overridesSection != null && overridesSection.contains(itemKey)) {
+            String type = overridesSection.getString(itemKey, "").toLowerCase();
             if (type.equals("damage")) return AffixType.DAMAGE;
             if (type.equals("resist")) return AffixType.RESIST;
         }

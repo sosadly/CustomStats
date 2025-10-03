@@ -1,4 +1,4 @@
-package org.sosadly.command;
+package org.sosadly.customstats.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -6,9 +6,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.sosadly.CustomStats;
-import org.sosadly.manager.LocaleManager;
-import org.sosadly.util.ItemUtil;
+import org.sosadly.customstats.CustomStats;
+import org.sosadly.customstats.manager.LocaleManager;
+import org.sosadly.customstats.util.ItemUtil;
 
 public class GetScrollCommand implements CommandExecutor {
     private final LocaleManager localeManager;

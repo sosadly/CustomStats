@@ -1,4 +1,4 @@
-package org.sosadly.util;
+package org.sosadly.customstats.util;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
@@ -6,8 +6,8 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.sosadly.CustomStats;
-import org.sosadly.manager.LocaleManager;
+import org.sosadly.customstats.CustomStats;
+import org.sosadly.customstats.manager.LocaleManager;
 
 import java.util.stream.Collectors;
 

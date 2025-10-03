@@ -1,6 +1,6 @@
 name: CustomStats
 version: 0.3
-main: org.sosadly.CustomStats
+main: org.sosadly.customstats.CustomStats
 api-version: '1.21'
 author: sosadly
 description: Adds custom affixes to crafted items.

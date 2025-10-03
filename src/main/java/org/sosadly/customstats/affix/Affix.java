@@ -1,8 +1,8 @@
-package org.sosadly.affix;
+package org.sosadly.customstats.affix;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
-import org.sosadly.util.LoreUtil;
+import org.sosadly.customstats.util.LoreUtil;
 
 import java.util.function.Function;
 

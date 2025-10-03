@@ -3,7 +3,7 @@ plugins {
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
-group = 'org.sosadly'
+group = 'org.sosadly.customstats'
 version = '1.0.0'
 
 repositories {

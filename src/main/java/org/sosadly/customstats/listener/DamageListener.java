@@ -1,4 +1,4 @@
-package org.sosadly.listener;
+package org.sosadly.customstats.listener;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -14,8 +14,8 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.sosadly.affix.Affix;
-import org.sosadly.affix.AffixKeys;
+import org.sosadly.customstats.affix.Affix;
+import org.sosadly.customstats.affix.AffixKeys;
 
 import java.util.concurrent.ThreadLocalRandom;
 

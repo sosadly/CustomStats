@@ -1,8 +1,8 @@
-package org.sosadly.affix;
+package org.sosadly.customstats.affix;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.Plugin;
-import org.sosadly.CustomStats;
+import org.sosadly.customstats.CustomStats;
 
 public final class AffixKeys {
 

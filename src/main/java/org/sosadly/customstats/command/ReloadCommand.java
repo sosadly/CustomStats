@@ -1,10 +1,10 @@
-package org.sosadly.command;
+package org.sosadly.customstats.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import org.sosadly.CustomStats;
+import org.sosadly.customstats.CustomStats;
 
 public class ReloadCommand implements CommandExecutor {
     private final CustomStats plugin;

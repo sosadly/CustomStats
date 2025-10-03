@@ -54,9 +54,13 @@ affix-settings:
 # damage - для атакуючих афіксів
 # resist - для захисних афіксів
 custom-affix-items:
-  minecraft:arrow: "damage"
-  minecraft:shield: "resist"
-  # myplugin:custom_item: "resist"
+  overrides:
+    minecraft:arrow: "damage"
+    minecraft:shield: "resist"
+    # myplugin:custom_item: "resist"
+  blacklist:
+    # Приклади: предмети, на які НЕ потрібно накладати афікси навіть якщо вони мечі або броня
+    - "minecraft:iron_sword"
 
 affix-scroll:
   item-id: "minecraft:paper"

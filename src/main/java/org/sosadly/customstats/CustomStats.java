@@ -1,11 +1,11 @@
-package org.sosadly;
+package org.sosadly.customstats;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.sosadly.command.CustomStatsCommand;
-import org.sosadly.listener.ApplyAffixItemListener;
-import org.sosadly.listener.CraftListener;
-import org.sosadly.listener.DamageListener;
-import org.sosadly.manager.LocaleManager;
+import org.sosadly.customstats.command.CustomStatsCommand;
+import org.sosadly.customstats.listener.ApplyAffixItemListener;
+import org.sosadly.customstats.listener.CraftListener;
+import org.sosadly.customstats.listener.DamageListener;
+import org.sosadly.customstats.manager.LocaleManager;
 
 import java.util.Objects;
 

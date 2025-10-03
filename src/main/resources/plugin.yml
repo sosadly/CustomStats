@@ -1,0 +1,16 @@
+name: CustomStats
+version: 0.3
+main: org.sosadly.CustomStats
+api-version: '1.21'
+author: sosadly
+description: Adds custom affixes to crafted items.
+commands:
+  customstats:
+    description: Main command for CustomStats plugin.
+    aliases: [cs]
+    permission: customstats.admin
+    usage: /<command> reload | getscroll
+permissions:
+  customstats.use_affix_scroll:
+    description: Allows using the affix scroll.
+    default: true

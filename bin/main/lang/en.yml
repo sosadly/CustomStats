@@ -1,0 +1,47 @@
+# English localization for CustomStats
+# Placeholders must be in <placeholder> format.
+
+# General messages
+error:
+  no_permission: "<red>You do not have permission.</red>"
+  unknown_command: "<red>Unknown subcommand.</red>"
+  player_only: "<red>This command can only be executed by a player.</red>"
+  invalid_amount: "<red>Invalid amount.</red>"
+
+# Commands
+command:
+  usage: "<yellow>Usage: <white>/<label> <reload|getscroll></white></yellow>"
+  reload:
+    success: "<green>Configuration and language files have been reloaded.</green>"
+  getscroll:
+    success: "<green>You received <amount> affix scroll(s).</green>"
+
+# Affix Scroll
+item:
+  scroll:
+    name: "<gold>Scroll of Affix</gold>"
+    lore:
+      - "<gray>Right-click an item in your inventory</gray>"
+      - "<gray>to add a random affix.</gray>"
+      
+  # Messages when using the scroll
+  scroll_use:
+    max_affixes: "<red>This item already has the maximum number of affixes.</red>"
+    no_more_affixes: "<yellow>No more available affixes for this item.</yellow>"
+
+# Lore formats for affixes
+lore:
+  # Offensive affixes
+  lightning_damage: "<yellow>⚡ Lightning Damage: <aqua>+<value></aqua></yellow>"
+  fire_damage: "<red>🔥 Fire Damage: <gold>+<value></gold></red>"
+  water_damage: "<blue>💧 Water Damage: <dark_aqua>+<value></dark_aqua></blue>"
+  life_steal: "<dark_red>🩸 Life Steal: <green>+<value></green></dark_red>"
+  poison_damage: "<dark_green>💀 Poison Damage: <green>+<value></green></dark_green>"
+  crit_chance: "<gold>🎯 Crit Chance: <yellow>+<value>%</yellow></gold>"
+  true_damage: "<dark_gray>🔪 True Damage: <white>+<value></white></dark_gray>"
+  
+  # Defensive affixes
+  lightning_resist: "<yellow>⚡ Lightning Resist: <aqua>+<value></aqua></yellow>"
+  fire_resist: "<red>🔥 Fire Resist: <gold>+<value></gold></red>"
+  water_resist: "<blue>💧 Water Resist: <dark_aqua>+<value></dark_aqua></blue>"
+  poison_resist: "<dark_green>💀 Poison Resist: <green>+<value></green></dark_green>"

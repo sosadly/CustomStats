@@ -1,0 +1,67 @@
+language: "en"
+
+# Налаштування конкретних аффіксів
+# У майбутньому сюди можна буде додавати нові, наприклад fire-damage, poison-damage і т.д.
+affixes:
+  lightning-damage:
+    min: 2.0
+    max: 6.0
+  fire-damage:
+    min: 3.0
+    max: 8.0
+  water-damage:
+    min: 2.0
+    max: 7.0
+  lifesteal:
+    min: 1.0
+    max: 5.0
+  poison-damage:
+    min: 1.0
+    max: 4.0
+  crit-chance:
+    min: 5.0
+    max: 25.0
+  true-damage:
+    min: 1.0
+    max: 3.0
+
+
+  # Resists
+  lightning-resist:
+    min: 2.0
+    max: 4.0
+  fire-resist:
+    min: 2.0
+    max: 4.0
+  water-resist:
+    min: 2.0
+    max: 4.0
+  poison-resist:
+    min: 2.0
+    max: 4.0
+
+# Загальні налаштування системи аффіксів
+affix-settings:
+  # Мінімальна та максимальна кількість аффіксів, що можуть з'явитись на предметі при крафті.
+  min-affixes: 1
+  max-affixes: 2
+  # Спеціальний предмет, який дозволяє перевищити ліміт аффіксів на +1.
+  # Формат: "namespace:key". Це заготовка на майбутнє.
+  bonus-affix-item: "customstats:affix_rune"
+
+# Кастомні предмети, які можуть отримувати афікси
+# Формат: "minecraft:item_id": "damage" або "resist"
+# damage - для атакуючих афіксів
+# resist - для захисних афіксів
+custom-affix-items:
+  minecraft:arrow: "damage"
+  minecraft:shield: "resist"
+  # myplugin:custom_item: "resist"
+
+affix-scroll:
+  item-id: "minecraft:paper"
+  name: "§6Скрол Аффіксу"
+  lore:
+    - "§7ПКМ по предмету в інвентарі,"
+    - "§7щоб додати випадковий афікс."
+    

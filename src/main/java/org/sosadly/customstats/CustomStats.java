@@ -22,8 +22,9 @@ public final class CustomStats extends JavaPlugin {
         localeManager.loadMessages();
 
         // Реєстрація слухачів подій
+        DamageListener damageListener = new DamageListener(this);
         getServer().getPluginManager().registerEvents(new CraftListener(this), this);
-        getServer().getPluginManager().registerEvents(new DamageListener(), this);
+        getServer().getPluginManager().registerEvents(damageListener, this);
         getServer().getPluginManager().registerEvents(new ApplyAffixItemListener(this), this);
 
         // Реєстрація головної команди

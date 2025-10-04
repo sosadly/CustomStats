@@ -1,7 +1,7 @@
 language: "en"
 
-# Налаштування конкретних аффіксів
-# У майбутньому сюди можна буде додавати нові, наприклад fire-damage, poison-damage і т.д.
+# Individual affix settings
+# Add more entries here in the future, e.g. fire-damage, poison-damage, etc.
 affixes:
   lightning-damage:
     min: 2.0
@@ -24,9 +24,18 @@ affixes:
   true-damage:
     min: 1.0
     max: 3.0
+  bleed-damage:
+    min: 1.0
+    max: 4.0
+  arcane-damage:
+    min: 2.0
+    max: 6.0
+  nature-damage:
+    min: 1.0
+    max: 3.0
 
 
-  # Resists
+  # Resistances
   lightning-resist:
     min: 2.0
     max: 4.0
@@ -39,33 +48,109 @@ affixes:
   poison-resist:
     min: 2.0
     max: 4.0
+  bleed-resist:
+    min: 1.0
+    max: 3.0
+  arcane-resist:
+    min: 1.5
+    max: 3.5
+  nature-resist:
+    min: 1.0
+    max: 3.0
 
-# Загальні налаштування системи аффіксів
+# Global affix system settings
 affix-settings:
-  # Мінімальна та максимальна кількість аффіксів, що можуть з'явитись на предметі при крафті.
+  # Minimum and maximum number of affixes that can appear on an item when crafting.
   min-affixes: 1
   max-affixes: 2
-  # Спеціальний предмет, який дозволяє перевищити ліміт аффіксів на +1.
-  # Формат: "namespace:key". Це заготовка на майбутнє.
+  # Special item that allows exceeding the affix limit by +1.
+  # Format: "namespace:key". Placeholder for future use.
   bonus-affix-item: "customstats:affix_rune"
+  # Chance (in percent) that an item will roll an active affix when crafted.
+  active-affix-roll-chance: 15.0
 
-# Кастомні предмети, які можуть отримувати афікси
-# Формат: "minecraft:item_id": "damage" або "resist"
-# damage - для атакуючих афіксів
-# resist - для захисних афіксів
+# Custom items eligible for affixes
+# Format: "minecraft:item_id": "damage" or "resist"
+# damage - for offensive affixes
+# resist - for defensive affixes
 custom-affix-items:
   overrides:
     minecraft:arrow: "damage"
     minecraft:shield: "resist"
     # myplugin:custom_item: "resist"
   blacklist:
-    # Приклади: предмети, на які НЕ потрібно накладати афікси навіть якщо вони мечі або броня
+    # Examples: items that should NOT receive affixes even if they are swords or armor
     - "minecraft:iron_sword"
+
+# Active affixes. At most one active affix can be rolled on an item.
+active-affixes:
+  weapon:
+    earth_shock:
+      chance-min: 3.0
+      chance-max: 10.0
+      bonus-damage: 4.0
+      splash-damage: 3.0
+      radius: 3.0
+      knockback: 0.6
+    arcane_nova:
+      chance-min: 3.0
+      chance-max: 10.0
+      damage-min: 5.0
+      damage-max: 12.0
+      radius: 3.5
+      splash-multiplier: 0.6
+    shadow_step:
+      chance-min: 3.0
+      chance-max: 10.0
+      bonus-damage-min: 4.0
+      bonus-damage-max: 9.0
+      behind-distance: 1.6
+      target-slow-duration: 60
+      target-weakness-duration: 40
+    explosive_strike:
+      chance-min: 3.0
+      chance-max: 10.0
+      explosion-power: 2.0
+      break-blocks: false
+      set-fire: false
+    frost_orb:
+      chance-min: 3.0
+      chance-max: 10.0
+      damage-min: 3.0
+      damage-max: 10.0
+      slow-duration: 60  # ticks, ~3 seconds
+      slow-amplifier: 1
+      structure-duration: 60 # ticks, how long the snow structure persists
+  armor:
+    renewal_blessing:
+      chance-min: 3.0
+      chance-max: 10.0
+      duration: 200   # ticks, 10 seconds
+      amplifier: 0
+    ice_cocoon:
+      chance-min: 3.0
+      chance-max: 10.0
+      duration: 60    # ticks, 3 seconds
+      heal-amount: 10.0
+      shell-material: "minecraft:packed_ice"
+      shell-radius: 1.8
+    divine_shield:
+      chance-min: 3.0
+      chance-max: 10.0
+      duration: 60    # ticks, 3 seconds
+      particle-count: 40
+      health-threshold-percent: 10.0
+    thorns_aura:
+      chance-min: 3.0
+      chance-max: 10.0
+      reflect-percent: 0.4
+      resistance-duration: 60
+      thorns-duration: 100
 
 affix-scroll:
   item-id: "minecraft:paper"
-  name: "§6Скрол Аффіксу"
+  name: "§6Affix Scroll"
   lore:
-    - "§7ПКМ по предмету в інвентарі,"
-    - "§7щоб додати випадковий афікс."
+    - "§7Right-click an item in your inventory"
+    - "§7to add a random affix."
     

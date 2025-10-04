@@ -2,6 +2,7 @@ package org.sosadly.customstats.listener;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -19,6 +20,8 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.sosadly.customstats.affix.Affix;
+import org.sosadly.customstats.affix.ActiveAffix;
+import org.sosadly.customstats.affix.AffixType;
 import org.sosadly.customstats.CustomStats;
 
 import java.util.ArrayList;
@@ -34,8 +37,6 @@ public class CraftListener implements Listener {
 
     private final CustomStats plugin;
     private final Map<String, ItemStack> rollCache = new ConcurrentHashMap<>();
-    private enum AffixType { DAMAGE, RESIST, NONE }
-
     public CraftListener(CustomStats plugin) {
         this.plugin = plugin;
     }
@@ -192,8 +193,30 @@ public class CraftListener implements Listener {
         ItemStack customizedItem = originalItem.clone();
         ItemMeta meta = customizedItem.getItemMeta();
         List<Component> lore = new ArrayList<>();
-        if (meta != null && meta.hasLore()) {
+        if (meta == null) {
+            return customizedItem;
+        }
+
+        if (meta.hasLore()) {
             lore.addAll(meta.lore());
+        }
+
+        boolean hasActiveAffix = hasActiveAffix(meta);
+        ActiveAffix selectedActive = null;
+        if (!hasActiveAffix) {
+            List<ActiveAffix> possibleActiveAffixes = new ArrayList<>(ActiveAffix.forType(allowedType));
+            if (!possibleActiveAffixes.isEmpty()) {
+                double rollChance = config.getDouble("affix-settings.active-affix-roll-chance", 5.0);
+                if (rollChance > 0 && ThreadLocalRandom.current().nextDouble(0, 100) < rollChance) {
+                    Collections.shuffle(possibleActiveAffixes);
+                    selectedActive = possibleActiveAffixes.get(0);
+                }
+            }
+        }
+
+        if (selectedActive != null && meta != null) {
+            applyActiveAffix(meta, lore, selectedActive, config);
+            affixesToApply = Math.max(0, affixesToApply - 1);
         }
 
         List<Affix> availableAffixes = getAvailableAffixes(allowedType);
@@ -214,6 +237,76 @@ public class CraftListener implements Listener {
         meta.lore(lore);
         customizedItem.setItemMeta(meta);
         return customizedItem;
+    }
+
+    private boolean hasActiveAffix(ItemMeta meta) {
+        if (meta == null) {
+            return false;
+        }
+        for (ActiveAffix activeAffix : ActiveAffix.values()) {
+            if (meta.getPersistentDataContainer().has(activeAffix.getChanceKey(), PersistentDataType.DOUBLE)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void applyActiveAffix(ItemMeta meta, List<Component> lore, ActiveAffix activeAffix, FileConfiguration config) {
+        String path = activeAffix.getConfigPath();
+        double chanceMin = config.getDouble(path + ".chance-min", 3.0);
+        double chanceMax = config.getDouble(path + ".chance-max", 10.0);
+        double chanceValue = randomInRange(chanceMin, chanceMax);
+        meta.getPersistentDataContainer().set(activeAffix.getChanceKey(), PersistentDataType.DOUBLE, chanceValue);
+
+        NamespacedKey extraKey = activeAffix.getExtraValueKey().orElse(null);
+        Double extraValue = null;
+        switch (activeAffix) {
+            case FROST_ORB -> {
+                double dmgMin = config.getDouble(path + ".damage-min", 3.0);
+                double dmgMax = config.getDouble(path + ".damage-max", 10.0);
+                extraValue = randomInRange(dmgMin, dmgMax);
+                if (extraKey != null && extraValue != null) {
+                    meta.getPersistentDataContainer().set(extraKey, PersistentDataType.DOUBLE, extraValue);
+                }
+            }
+            case ARCANE_NOVA -> {
+                double dmgMin = config.getDouble(path + ".damage-min", 5.0);
+                double dmgMax = config.getDouble(path + ".damage-max", 12.0);
+                extraValue = randomInRange(dmgMin, dmgMax);
+                if (extraKey != null && extraValue != null) {
+                    meta.getPersistentDataContainer().set(extraKey, PersistentDataType.DOUBLE, extraValue);
+                }
+            }
+            case SHADOW_STEP -> {
+                double bonusMin = config.getDouble(path + ".bonus-damage-min", 4.0);
+                double bonusMax = config.getDouble(path + ".bonus-damage-max", 8.0);
+                extraValue = randomInRange(bonusMin, bonusMax);
+                if (extraKey != null && extraValue != null) {
+                    meta.getPersistentDataContainer().set(extraKey, PersistentDataType.DOUBLE, extraValue);
+                }
+            }
+            case ICE_COCOON -> {
+                double heal = config.getDouble(path + ".heal-amount", 10.0);
+                extraValue = heal;
+                if (extraKey != null) {
+                    meta.getPersistentDataContainer().set(extraKey, PersistentDataType.DOUBLE, extraValue);
+                }
+            }
+            default -> {
+                if (extraKey != null) {
+                    meta.getPersistentDataContainer().set(extraKey, PersistentDataType.DOUBLE, chanceValue);
+                }
+            }
+        }
+
+        lore.add(activeAffix.createLore(chanceValue, extraValue));
+    }
+
+    private double randomInRange(double min, double max) {
+        if (max <= min) {
+            return min;
+        }
+        return ThreadLocalRandom.current().nextDouble(min, max);
     }
     
     private List<Affix> getAvailableAffixes(AffixType type) {

@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.sosadly.customstats.affix.Affix;
+import org.sosadly.customstats.affix.AffixType;
 import org.sosadly.customstats.CustomStats;
 import org.sosadly.customstats.manager.LocaleManager;
 import org.sosadly.customstats.util.ItemUtil;
@@ -23,8 +24,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ApplyAffixItemListener implements Listener {
     private final CustomStats plugin;
     private final LocaleManager localeManager;
-    private enum AffixType { DAMAGE, RESIST, NONE }
-
     public ApplyAffixItemListener(CustomStats plugin) {
         this.plugin = plugin;
         this.localeManager = plugin.getLocaleManager();

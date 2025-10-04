@@ -43,6 +43,21 @@ public enum Affix {
             "true-damage",
             LoreUtil::createTrueDamageLore
     ),
+    BLEED_DAMAGE(
+            AffixKeys.BLEED_DAMAGE,
+            "bleed-damage",
+            LoreUtil::createBleedDamageLore
+    ),
+    ARCANE_DAMAGE(
+            AffixKeys.ARCANE_DAMAGE,
+            "arcane-damage",
+            LoreUtil::createArcaneDamageLore
+    ),
+    NATURE_DAMAGE(
+            AffixKeys.NATURE_DAMAGE,
+            "nature-damage",
+            LoreUtil::createNatureDamageLore
+    ),
 
 
 
@@ -66,6 +81,21 @@ public enum Affix {
             AffixKeys.POISON_RESIST,
             "poison-resist",
             LoreUtil::createPoisonResistLore
+    ),
+    BLEED_RESIST(
+            AffixKeys.BLEED_RESIST,
+            "bleed-resist",
+            LoreUtil::createBleedResistLore
+    ),
+    ARCANE_RESIST(
+            AffixKeys.ARCANE_RESIST,
+            "arcane-resist",
+            LoreUtil::createArcaneResistLore
+    ),
+    NATURE_RESIST(
+            AffixKeys.NATURE_RESIST,
+            "nature-resist",
+            LoreUtil::createNatureResistLore
     );
 
     private final NamespacedKey key;
